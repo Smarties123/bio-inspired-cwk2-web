@@ -1,28 +1,67 @@
-import { useState } from "react";
-import { digits } from "../assets/sampleDigits";
+import { useState, useEffect } from "react";
+import { emojis } from "../assets/sampleEmojis";
 
-export default function Controls({ onSubmit }) {
-  const [digit, setDigit] = useState("zero");
-  const [noise, setNoise] = useState(10);
+export default function Controls({ datasets, onSubmit }) {
+  const [dataset, setDataset] = useState("mnist");
+  const [selKey, setSelKey]  = useState(null);
+  const [noise,  setNoise]   = useState(10);
+
+  // keep selection valid when samples arrive or dataset changes
+  useEffect(() => {
+    const keys = Object.keys(datasets[dataset].samples);
+    if (keys.length && !keys.includes(selKey)) setSelKey(keys[0]);
+  }, [dataset, datasets]);
+
+  const { label, samples } = datasets[dataset];
+
   return (
-    <div className="flex flex-col gap-4 p-4 bg-gray-50 rounded-2xl shadow">
-      <select className="p-2 rounded border" value={digit} onChange={e=>setDigit(e.target.value)}>
-        {Object.keys(digits).map(d=> <option key={d}>{d}</option>)}
-      </select>
-      <label className="flex flex-col gap-1">
-        Noise: {noise}%
-        <input type="range" min="0" max="100" value={noise} onChange={e=>setNoise(e.target.value)} />
-      </label>
+    <aside className="flex flex-col gap-6">
+      {/* dataset toggle */}
       <div className="flex gap-2">
-        {[
-          ["Cellular Automata","ca"],
-          ["Hopfield","hop"],
-          ["Autoencoder","ffn"]
-        ].map(([txt,key])=>
-          <button key={key} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white rounded-xl p-2"
-                  onClick={()=>onSubmit({digit,noise,model:key})}>{txt}</button>)
-        }
+        {Object.entries(datasets).map(([k, { label }]) => (
+          <button key={k}
+            onClick={() => setDataset(k)}
+            className={`px-3 py-1 rounded-full border ${
+              dataset === k ? "bg-indigo-600 text-white" : "bg-white"
+            }`}>
+            {label}
+          </button>
+        ))}
       </div>
-    </div>
+
+      {/* sample picker */}
+      <div className="grid grid-cols-5 gap-2">
+        {Object.entries(samples).map(([k, src]) => (
+          <img key={k} src={src}
+            onClick={() => setSelKey(k)}
+            className={`w-16 h-16 cursor-pointer border-4 rounded-xl ${
+              selKey === k ? "border-indigo-600" : "border-transparent"
+            }`} />
+        ))}
+      </div>
+
+      {/* noise slider */}
+      <label className="flex flex-col gap-1">
+        Noise {noise}%
+        <input type="range" min="0" max="100" value={noise}
+               onChange={e => setNoise(+e.target.value)} />
+      </label>
+
+      {/* run buttons */}
+      <div className="grid grid-cols-3 gap-2">
+        {[
+          ["Cellular Automata", "ca"],
+          ["Hopfield",          "hop"],
+          ["Autoencoder",       "ffn"],
+        ].map(([txt, key]) => (
+          <button key={key}
+            className="rounded-xl py-2 font-semibold bg-gradient-to-br from-indigo-500 to-indigo-700 text-white hover:brightness-110 disabled:opacity-50"
+            disabled={!selKey}
+            onClick={() => onSubmit({ key: selKey, noise, model: key, dataset })}>
+            {txt}
+          </button>
+        ))}
+      </div>
+    </aside>
   );
 }
