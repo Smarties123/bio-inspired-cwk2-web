@@ -14,7 +14,7 @@ Backend hosted on → **<https://bio-inspired-cwk2-web.onrender.com/health>**
 |--------|---------|-----------|
 | **`frontend/`** | Vite + React UI with Tailwind CSS & Recharts. | React 18, Vite 5, Tailwind 3 |
 | **`backend/`**  | FastAPI micro‑service implementing four bio‑inspired recall models. | FastAPI 0.110, NumPy, scikit‑learn, MiniSom |
-| **`research/`** | python notebooks used during experimentation & report writing and contains in depth analysis of Algorithms used. |
+| **`research/`** | python notebooks used during experimentation & report writing and contains in depth analysis of Algorithms used. | Google Collab, Matplotlib, skimage and MiniSom
 
 ### Research notebooks
 * `Bio Inspired CWK 2 Final Version - MNIST.ipynb`
