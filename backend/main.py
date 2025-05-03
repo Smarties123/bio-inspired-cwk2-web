@@ -65,6 +65,11 @@ def run_ca(req: ImageReq):
         "accuracy": acc,
         "frames": [array_to_b64(f) for f in frames]
     }
+    
+@app.get("/health")
+def health_check():
+    return {"status": "ok"}
+
 
 @app.post("/run_hopfield", response_model=ReconResp)
 def run_hopfield(req: DualImageReq):
