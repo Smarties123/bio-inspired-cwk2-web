@@ -1,121 +1,92 @@
-Quick-start
-1 . Clone (or download) the repo
-bash
-Copy
-Edit
-git clone https://github.com/<your-org>/bio-inspired-app.git
-cd bio-inspired-app            # project root
-<details> <summary><strong>Folder layout recap</strong></summary>
-css
-Copy
-Edit
-bio-inspired-app
-├─ backend/          ← FastAPI + models + utils
-│  ├─ models/
-│  │   ├─ automaton.py
-│  │   ├─ hopfield.py
-│  │   └─ autoencoder.py
-│  ├─ main.py
-│  └─ requirements.txt
-└─ frontend/         ← React + Vite + Tailwind
-   ├─ src/…
-   ├─ package.json
-   └─ vite.config.js
-</details>
-2 . Prerequisites
+# Investigating Cellular Automata as Associative Memory Systems
 
-What	Version	Windows install	macOS / Linux install
-Python	3.10 or 3.11 (⚠️ not 3.12)	https://python.org/downloads/ (“Add to PATH”)	brew install python@3.11 / apt install python3.11
-Node.js	18 +	https://nodejs.org (LTS)	brew install node / apt install nodejs
-Microsoft VC++ Runtime (Windows only)	2015-2022	https://aka.ms/vs/17/release/vc_redist.x64.exe	—
-3 . Backend (FastAPI + NumPy/Torch)
+Interactive demo and reference code for our University of Leeds 2025 group project  
+**“Bio‑Inspired Associative Memories for Robust Pattern Recall.”**
+
+Live site → **<https://bio-inspired-cwk2-web.vercel.app>**
+Backend hosted on → **<https://bio-inspired-cwk2-web.onrender.com/health>**
+
+---
+
+## 🚀 What’s inside?
+
+| Folder | Purpose | Main Tech |
+|--------|---------|-----------|
+| **`frontend/`** | Vite + React UI with Tailwind CSS & Recharts. | React 18, Vite 5, Tailwind 3 |
+| **`backend/`**  | FastAPI micro‑service implementing four bio‑inspired recall models. | FastAPI 0.110, NumPy, scikit‑learn, MiniSom |
+| **`research/`** | python notebooks used during experimentation & report writing and contains in depth analysis of Algorithms used. |
+
+### Research notebooks
+* `Bio Inspired CWK 2 Final Version - MNIST.ipynb`
+* `Bio Inspired CWK 2 Final Version - Larger Images & Colour.ipynb`
+
+---
+
+##  Tech‑stack highlights
+
+* **FastAPI** – typed, lightning‑fast Python API.
+* **Vite + React 18** – modern SPA tooling with instant HMR.
+* **Tailwind CSS** – utility‑first styling for rapid prototyping.
+* **Recharts** – simple D3‑powered charts to visualise accuracy.
+* **Deployment** –  
+  * Backend: **Render** (free web service, automatic builds).  
+  * Frontend: **Vercel** (static build from `frontend/dist`).
+
+---
+
+##   Running locally
+
+> Requires **Node ≥ 18** & **Python ≥ 3.10**.
+
+### 1. Clone
+
+```bash
+git clone https://github.com/Smarties123/bio-inspired-cwk2-web.git
+cd bio-inspired-cwk2-web
+2. Backend
 bash
 Copy
 Edit
-# from project root
+# optional: create & activate virtualenv
+python -m venv .venv
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
+
+# install server requirements
+pip install -r requirements.txt
+
+# start API (defaults to http://localhost:8000)
 cd backend
-
-# create & activate a venv (Windows PowerShell)
-py -3.11 -m venv .venv
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process  # first time only
-.\.venv\Scripts\activate
-
-# macOS/Linux
-# python3.11 -m venv .venv
-# source .venv/bin/activate
-
-# upgrade installer and pull deps
-python -m pip install --upgrade pip
-pip install -r requirements.txt       # fastapi, numpy, torch, ...
-
-# (optional) if NumPy/PyTorch wheels fail to import:
-# pip install --force-reinstall --no-cache-dir numpy torch pydantic-core
-Tip: confirm the compiled libraries exist:
-dir .venv\Lib\site-packages\numpy\core\*.pyd
-
-Launch the API
+uvicorn main:app --reload
+3. Frontend
 bash
 Copy
 Edit
-# still inside venv & project root
-cd ..
-uvicorn backend.main:app --reload
-Docs at http://localhost:8000/docs
+cd ../frontend
+npm install
+npm run dev           # opens at http://localhost:5173
+The React app is hard‑coded to call the API at http://localhost:8000, so keep both processes running in parallel.
 
-4 . Frontend (React + Vite)
-bash
+📦  requirements.txt (backend)
+text
 Copy
 Edit
-cd frontend
-npm install          # installs React, Vite, Tailwind, Axios, Recharts
-npm run dev          # dev server on http://localhost:5173
-If you run Uvicorn on a different port, update frontend/src/api.js:
+# FastAPI server
+fastapi==0.110.0
+uvicorn==0.27.1
 
-js
-Copy
-Edit
-const api = axios.create({ baseURL: "http://localhost:9000" });
-5 . Play
-Open http://localhost:5173 in your browser.
+# Array & image processing
+numpy==1.26.4
+pillow==10.3.0
 
-Choose a digit → set noise level → click one of the model buttons.
+# Validation
+pydantic==2.7.1
+python-multipart==0.0.9
 
-View Original | Noisy | Reconstructed and the accuracy bar.
+# Machine learning
+scikit-learn==1.5.0
+minisom==2.3.0
+(PyTorch / torchvision removed – the project is now pure‑NumPy.)
 
-🛠 Common errors & fixes
-
-Error	Cause	Fix
-ModuleNotFoundError: torch._prims_common	Installed PyTorch on Python 3.12	Use Python 3.10/3.11 or pip install --pre torch --index-url https://download.pytorch.org/whl/nightly/cpu
-No module named 'numpy.core._multiarray_umath'	Corrupt / wrong-arch NumPy wheel	pip install --force-reinstall --no-cache-dir numpy==1.26.4 + install VC++ redist
-ImportError: attempted relative import with no known parent package	Running Uvicorn from inside backend/	Run from project root: uvicorn backend.main:app --reload
-Fancy hyphen ÔÇô characters cause SyntaxError	Copied text from Word/Slack	Replace with ASCII - (Ctrl+H in VS Code)
-🔄 Training your own patterns
-The demo ships with tiny inline digit bit-maps.
-To train real MNIST for Hopfield/Autoencoder:
-
-python
-Copy
-Edit
-from sklearn.datasets import load_digits
-digits = load_digits()
-patterns = (digits.images > 4).astype(float)   # threshold to binary
-
-from backend.models.hopfield import HopfieldNetwork
-hop = HopfieldNetwork()
-hop.train(patterns)
-# np.save("hop_weights.npy", hop.W)
-
-# For the autoencoder
-from backend.models.autoencoder import FeedforwardAutoencoder
-model = FeedforwardAutoencoder()
-# ... PyTorch training ...
-# torch.save(model.state_dict(), "ae.pt")
-Load the weights in backend/main.py.
-
-Happy hacking! 🎉
-
-
-
-
-
-
+🤝  Contributors
+Angelica P. · Hemant S. – supervised by Prof. Netta Cohen.
+University of Leeds · School of Computing · 2025
