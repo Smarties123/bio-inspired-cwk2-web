@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import numpy as np
-from torchvision import datasets, transforms
+# from torchvision import datasets, transforms
 
 from backend.utils import b64_to_array, array_to_b64
 from backend.models.ca import WeightedMajorityCA
@@ -11,6 +11,9 @@ from backend.models.hopfield_pi import HopfieldPseudoInverse
 from backend.models.som_knn import SOMKNN
 from backend.models.hybrid import HybridHopCaHop
 from backend.utils import add_noise
+
+from pathlib import Path
+
 
 
 app = FastAPI(title="Bio-Inspired Recall API")
@@ -34,15 +37,10 @@ class DualImageReq(BaseModel):
 
 # load 10 MNIST test samples into memory
 def _load_samples():
-    tf = transforms.ToTensor()
-    ds = datasets.MNIST(root="/tmp", train=False, download=True, transform=tf)
-    picked = {}
-    for img,label in ds:
-        if label not in picked:
-            arr = (img.squeeze(0).numpy()*255).astype(np.uint8)
-            picked[label] = arr
-        if len(picked)==10: break
-    return list(picked.values())
+    """Load the 10 NP‑arrays we exported; no torch required."""
+    data = np.load(Path(__file__).parent / "assets" / "mnist10.npz")
+    # data.files == ['0','1',...,'9']
+    return [data[str(i)] for i in range(10)]
 
 _samples = _load_samples()
 _patterns = np.stack([s.flatten()/255 for s in _samples], axis=0)
