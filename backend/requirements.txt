@@ -1,18 +1,17 @@
-# for fastapi server
+# FastAPI server
 fastapi==0.110.0
 uvicorn==0.27.1
 
-# array and image processing
+# Array and image processing
 numpy==1.26.4
 pillow==10.3.0
 
-# pydantic for schema validation
+# Pydantic for schema validation
 pydantic==2.7.1
 python-multipart==0.0.9
 
-# machine learning models
+# Machine learning models
 scikit-learn==1.5.0
 torch==2.2.2
-
-
 torchvision==0.17.2
+minisom==2.3.0
