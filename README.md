@@ -88,25 +88,28 @@ scikit-learn==1.5.0
 minisom==2.3.0
 (PyTorch / torchvision removed – the project is now pure‑NumPy.)
 
-🤝  Contributors
+##🤝  Contributors
 Angelica P. · Hemant S. – supervised by Prof. Netta Cohen.
 University of Leeds · School of Computing · 2025
 
 '''
+
 ---
 
-# Statement of Contributions & Attributions
 
-Area	Angelica Patel (sc21asp)	Hemant Smart (sc21hs2)	Mode of collaboration
-Project design & research framing	Co‑designed research questions; led literature search on auto‑associative memory	Co‑designed research questions; led comparative‑methods survey	White‑board sessions, Overleaf notes
-Model implementation	Implemented SOM‑KNN & LAM+ variants in research/ notebooks; wrote evaluation metrics	Implemented Hopfield‑PI & CA‑Weighted variants; optimised training loops	Pair‑programming in VS Code Live Share
-Backend (FastAPI)	Auth & CORS middleware; OpenAPI docs	Core /recall endpoints, weight‑loaders, CI workflow	Code reviews on every PR
-Frontend (React + Vite)	Layout, Tailwind styling, Recharts integration, routing	Component state logic, API hooks, deployment to Vercel	Mob‑programming on feature branches
-Experiments & figures	MNIST experiments, colour‑image benchmarks, SSIM plots	Runtime profiling, ablation studies, MSE heat‑maps	Shared Colab notebooks; random‑seed lockstep
-Report writing	Drafted §1–3 (intro, background, methods); final proofreading	Drafted §4–6 (results, discussion, conclusions); reference management	Joint editing in Overleaf (≈50 : 50 commit split)
-Presentation slides	Design & visuals	Speaker notes & timing	Rehearsed together
-DevOps & packaging	—	Created Makefile, Dockerfile, GitHub Actions CD	Pair‑review
-Testing & QA	PyTest suites, Playwright e2e tests	Front‑end linting, back‑end type‑checks	Alternating reviewer roles
+## 📜 Statement of Contributions & Attributions
+
+| Area | Angelica Patel (`sc21asp`) | Hemant Smart (`sc21hs2`) | Mode of collaboration |
+|------|-----------------------------|----------------------------|------------------------|
+| **Project design & research framing** | Co‑designed research questions; led literature search on auto‑associative memory | Co‑designed research questions; led comparative‑methods survey | Whiteboard sessions, Overleaf notes |
+| **Model implementation** | Implemented **SOM‑KNN** & **LAM+** variants in `research/`; wrote evaluation metrics | Implemented **Hopfield‑PI** & **CA‑Weighted** variants; optimised training loops | Pair‑programming in VS Code Live Share |
+| **Backend (FastAPI)** | Auth & CORS middleware; OpenAPI docs | Core `/recall` endpoints, weight‑loaders, CI workflow | Code reviews on every PR |
+| **Frontend (React + Vite)** | Layout, Tailwind styling, Recharts integration, routing | Component state logic, API hooks, deployment to Vercel | Mob‑programming on feature branches |
+| **Experiments & figures** | MNIST experiments, colour‑image benchmarks, SSIM plots | Runtime profiling, ablation studies, MSE heat‑maps | Shared Colab notebooks; random‑seed lockstep |
+| **Report writing** | Drafted §§1–3 (intro, background, methods); final proofreading | Drafted §§4–6 (results, discussion, conclusions); reference management | Joint editing in Overleaf (≈50:50 commit split) |
+| **Presentation slides** | Design & visuals | Speaker notes & timing | Rehearsed together |
+| **DevOps & packaging** | — | Created `Makefile`, `Dockerfile`, GitHub Actions CI/CD | Pair‑review |
+| **Testing & QA** | PyTest suites, Playwright e2e tests | Front-end linting, back-end type-checks | Alternating reviewer roles |
 
 ## External code & libraries
 
