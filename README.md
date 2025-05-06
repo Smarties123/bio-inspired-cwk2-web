@@ -16,7 +16,8 @@ Backend hosted on → **<https://bio-inspired-cwk2-web.onrender.com/health>**
 | **`backend/`**  | FastAPI micro‑service implementing four bio‑inspired recall models. | FastAPI 0.110, NumPy, scikit‑learn, MiniSom |
 | **`research/`** | python notebooks used during experimentation & report writing and contains in depth analysis of Algorithms used. | Google Collab, Matplotlib, skimage and MiniSom
 
-### Research notebooks
+## Step 1: Research notebooks
+### All code related to models in report can be found in the research notebook
 * `Bio Inspired CWK 2 Final Version - MNIST.ipynb`
 * `Bio Inspired CWK 2 Final Version - Larger Images & Colour.ipynb`
 
@@ -34,7 +35,7 @@ Backend hosted on → **<https://bio-inspired-cwk2-web.onrender.com/health>**
 
 ---
 
-##   Running locally
+##  Step 2: Running locally (Preview should be available on earlier link)
 
 > Requires **Node ≥ 18** & **Python ≥ 3.10**.
 
