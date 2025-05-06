@@ -106,15 +106,11 @@ export default function App() {
             more detail and improves robustness under noise.
           </p>
 
-          <h3 className="font-semibold mt-3">Hybrid Localised Attractor Maps (LAM)</h3>
+          <h3 className="font-semibold mt-3">Hybrid Localised Attractor Maps (LAM-Enhanced)</h3>
           <p className="text-sm leading-relaxed">
-            The Hybrid2 model combines global and local repair in three passes:
-            first a Hopfield-PI attractor step to stabilise coarse structure, then
-            a weighted‐majority CA pass to fix local anomalies, and finally a
-            second Hopfield-PI refinement. This alternating sequence leverages
-            both distributed attractor dynamics and local self‐organisation to
-            maximise recall accuracy under high noise levels.
+            LAM-Enhanced v3.5.4 is a hybrid memory model that blends global attractor convergence with local self-organisation. It performs two cycles of repair, each consisting of five Hopfield-PseudoInverse (global) steps followed by ten Weighted Cellular Automaton (local) updates. The outputs are blended using a fixed ratio (w = 0.5), allowing it to stabilise structure while smoothing noise. This architecture improves robustness across moderate noise levels but trades off fine detail in highly corrupted inputs.
           </p>
+
 
           <h3 className="font-semibold mt-4">Project info</h3>
           <p className="text-sm leading-relaxed">

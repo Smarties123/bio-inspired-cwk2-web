@@ -17,7 +17,7 @@ export default function Controls({ datasets, onSubmit }) {
     ["Cellular CA", "ca"],
     ["Hopfield PI",   "hopfield"],
     ["SOM-KNN",       "som"],
-    ["Hybrid H-CA-H", "hybrid"]
+    ["Hybrid LAM Enhanced", "hybrid"]
   ];
 
   return (
