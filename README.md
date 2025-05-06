@@ -1,4 +1,4 @@
-# Investigating Cellular Automata as Associative Memory Systems
+# Memory Under Corruption: A Comparative Performance of Advanced Bio-Inspired Architectures
 
 Interactive demo and reference code for our University of Leeds 2025 group project  
 **“Bio‑Inspired Associative Memories for Robust Pattern Recall.”**
